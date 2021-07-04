@@ -121,8 +121,7 @@ export default class DCEvents {
         }
 
         if (changed && Object.keys(delta).length) {
-            let tf = this.tv.$refs.chart.interval_ms ||
-                     this.data.chart.tf
+            let tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf
             let range = this.tv.getRange()
             this.ww.just('update-ov-settings', {
                 delta, tf, range
@@ -213,8 +212,7 @@ export default class DCEvents {
             }
             s.$props = Object.keys(args[0].src.props || {})
             this.tv.$set(obj, 'loading', true)
-            let tf = this.tv.$refs.chart.interval_ms ||
-                     this.data.chart.tf
+            let tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf
             let range = this.tv.getRange()
             if (obj.script && obj.script.output != null) {
                 args[0].output = obj.script.output
@@ -228,8 +226,7 @@ export default class DCEvents {
     exec_all_scripts() {
         if (!this.sett.scripts) return
         this.set_loading(true)
-        let tf = this.tv.$refs.chart.interval_ms ||
-                 this.data.chart.tf
+        let tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf
         let range = this.tv.getRange()
         this.ww.just('exec-all-scripts', { tf, range })
     }
@@ -249,8 +246,7 @@ export default class DCEvents {
         })
 
         if (Object.keys(delta).length) {
-            let tf = this.tv.$refs.chart.interval_ms ||
-                     this.data.chart.tf
+            let tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf
             let range = this.tv.getRange()
             this.ww.just('update-ov-settings', {
                 delta, tf, range

@@ -12000,7 +12000,7 @@ var DCEvents = /*#__PURE__*/function () {
       }
 
       if (changed && Object.keys(delta).length) {
-        var tf = this.tv.$refs.chart.interval_ms || this.data.chart.tf;
+        var tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf;
         var range = this.tv.getRange();
         this.ww.just('update-ov-settings', {
           delta: delta,
@@ -12128,7 +12128,7 @@ var DCEvents = /*#__PURE__*/function () {
 
         s.$props = Object.keys(args[0].src.props || {});
         this.tv.$set(obj, 'loading', true);
-        var tf = this.tv.$refs.chart.interval_ms || this.data.chart.tf;
+        var tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf;
         var range = this.tv.getRange();
 
         if (obj.script && obj.script.output != null) {
@@ -12147,7 +12147,7 @@ var DCEvents = /*#__PURE__*/function () {
     value: function exec_all_scripts() {
       if (!this.sett.scripts) return;
       this.set_loading(true);
-      var tf = this.tv.$refs.chart.interval_ms || this.data.chart.tf;
+      var tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf;
       var range = this.tv.getRange();
       this.ww.just('exec-all-scripts', {
         tf: tf,
@@ -12169,7 +12169,7 @@ var DCEvents = /*#__PURE__*/function () {
       });
 
       if (Object.keys(delta).length) {
-        var tf = this.tv.$refs.chart.interval_ms || this.data.chart.tf;
+        var tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf;
         var range = this.tv.getRange();
         this.ww.just('update-ov-settings', {
           delta: delta,
