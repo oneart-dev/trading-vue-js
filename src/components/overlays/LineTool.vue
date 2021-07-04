@@ -89,7 +89,7 @@ export default {
             return this.$props.settings.p2
         },
         line_width() {
-            return this.sett.lineWidth || 0.9
+            return this.sett.lineWidth || 1
         },
         color() {
             return this.sett.color || '#42b28a'

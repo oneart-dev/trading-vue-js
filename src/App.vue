@@ -1,9 +1,21 @@
 <template>
+  <div>
 <trading-vue :data="chart" :width="this.width" :height="this.height"
         :color-back="colors.colorBack"
+             :toolbar="true"
+             @tool-drag="event"
+             @hide-settings="hideSettings"
+             @show-settings="objectSelected"
         :color-grid="colors.colorGrid"
         :color-text="colors.colorText">
 </trading-vue>
+    <div v-if="settings" style="position: absolute; top: 100px; left: 100px; z-index: 1000">
+      set color
+      <button type="button" @click="setColor">
+        red
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,10 +29,26 @@ export default {
         TradingVue
     },
     methods: {
-        onResize() {
+      setColor() {
+        console.log(this.chart.merge(this.settings+'.settings', {
+          color: 'red'
+        }));
+      },
+      onResize() {
             this.width = window.innerWidth
             this.height = window.innerHeight
-        }
+        },
+      event(...event) {
+          console.log('event', event);
+      },
+      objectSelected(uuid) {
+        this.settings = uuid;
+          console.log('show settings', uuid);
+      },
+      hideSettings(...event) {
+        this.settings = false;
+        console.log('event hideSettings', event);
+      }
     },
     mounted() {
         window.addEventListener('resize', this.onResize)
@@ -31,6 +59,7 @@ export default {
     },
     data() {
         return {
+            settings: false,
             chart: new DataCube(Data),
             width: window.innerWidth,
             height: window.innerHeight,

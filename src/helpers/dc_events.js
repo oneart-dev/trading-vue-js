@@ -369,7 +369,7 @@ export default class DCEvents {
         sett.$uuid = `${id}-${Utils.now()}`
 
         this.tv.$set(this.data, 'selected', sett.$uuid)
-        this.add_trash_icon()
+        this.add_trash_icon(sett.$uuid)
     }
 
     // Remove selected / Remove all, etc
@@ -420,14 +420,15 @@ export default class DCEvents {
             $selected: true
         })
 
-        this.add_trash_icon()
+        this.add_trash_icon(args[2])
     }
 
-    add_trash_icon() {
+    add_trash_icon(uuid) {
         const type = 'System:Remove'
         if (this.data.tools.find(x => x.type === type)) {
             return
         }
+        this.tv.$emit('show-settings', uuid)
         this.data.tools.push({
             type, icon: Icons['trash.png']
         })
@@ -435,6 +436,7 @@ export default class DCEvents {
 
     remove_trash_icon() {
         // TODO: Does not call Toolbar render (distr version)
+        this.tv.$emit('hide-settings')
         const type = 'System:Remove'
         Utils.overwrite(this.data.tools,
             this.data.tools.filter(x => x.type !== type)

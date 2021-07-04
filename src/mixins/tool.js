@@ -37,6 +37,8 @@ export default {
             this.mouse.on('mouseup', e => {
                 this.drag = null
                 this.$emit('scroll-lock', false)
+                this.$emit('tool-drag')
+                console.log(e);
             })
 
             this.keys = new Keys(this)
@@ -76,6 +78,7 @@ export default {
             if (this.selected) this.$emit('remove-tool')
         },
         start_drag() {
+            this.isDragged = true;
             this.$emit('scroll-lock', true)
             let cursor = this.$props.cursor
             this.drag = { t: cursor.t, y$: cursor.y$ }
