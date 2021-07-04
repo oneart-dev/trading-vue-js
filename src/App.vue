@@ -4,6 +4,8 @@
         :color-back="colors.colorBack"
              :toolbar="true"
              @tool-drag="event"
+             @drawing-mode-off="event"
+             @remove-tool="event"
              @hide-settings="hideSettings"
              @show-settings="objectSelected"
         :color-grid="colors.colorGrid"
