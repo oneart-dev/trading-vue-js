@@ -5684,8 +5684,6 @@ function tool_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) 
         _this.$emit('scroll-lock', false);
 
         _this.$emit('tool-drag');
-
-        console.log(e);
       });
       this.keys = new Keys(this);
       this.keys.on('Delete', this.remove_tool);

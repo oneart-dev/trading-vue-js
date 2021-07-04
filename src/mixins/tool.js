@@ -38,7 +38,6 @@ export default {
                 this.drag = null
                 this.$emit('scroll-lock', false)
                 this.$emit('tool-drag')
-                console.log(e);
             })
 
             this.keys = new Keys(this)
