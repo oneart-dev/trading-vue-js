@@ -292,8 +292,7 @@ export default class DCEvents {
     }
 
     send_meta_2_ww() {
-        let tf = this.tv.$refs.chart.interval_ms ||
-                 this.data.chart.tf
+        let tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf
         let range = this.tv.getRange()
         this.ww.just('send-meta-info', { tf, range })
     }

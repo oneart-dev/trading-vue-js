@@ -12235,7 +12235,7 @@ var DCEvents = /*#__PURE__*/function () {
   }, {
     key: "send_meta_2_ww",
     value: function send_meta_2_ww() {
-      var tf = this.tv.$refs.chart.interval_ms || this.data.chart.tf;
+      var tf = this.tv.$refs.chart ? this.tv.$refs.chart.interval_ms || this.data.chart.tf : this.data.chart.tf;
       var range = this.tv.getRange();
       this.ww.just('send-meta-info', {
         tf: tf,
