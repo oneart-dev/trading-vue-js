@@ -1,5 +1,5 @@
 /*!
- * TradingVue.JS - v1.0.2 - Sun Jul 04 2021
+ * TradingVue.JS - v1.0.2 - Mon Jul 05 2021
  *     https://github.com/tvjsx/trading-vue-js
  *     Copyright (c) 2019 C451 Code's All Right;
  *     Licensed under the MIT license
@@ -6286,6 +6286,7 @@ var Ray = /*#__PURE__*/function (_Line) {
       ctx.lineWidth = this.line_width;
       ctx.strokeStyle = this.color;
       ctx.beginPath();
+      if (this.dash) ctx.setLineDash([5 * this.line_width, 5 * this.line_width]);
 
       if (this.sett.ray) {
         new Ray(this, ctx).draw(this.p1, this.p2);
@@ -6296,6 +6297,7 @@ var Ray = /*#__PURE__*/function (_Line) {
       }
 
       ctx.stroke();
+      ctx.setLineDash([]);
       this.render_pins(ctx);
     },
     use_for: function use_for() {
@@ -6321,6 +6323,9 @@ var Ray = /*#__PURE__*/function (_Line) {
     },
     color: function color() {
       return this.sett.color || '#42b28a';
+    },
+    dash: function dash() {
+      return this.sett.dash || false;
     }
   },
   data: function data() {

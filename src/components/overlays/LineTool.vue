@@ -62,6 +62,9 @@ export default {
             ctx.strokeStyle = this.color
             ctx.beginPath()
 
+            if(this.dash)
+              ctx.setLineDash([5 * this.line_width, 5 * this.line_width]);
+
             if (this.sett.ray) {
                 new Ray(this, ctx).draw(this.p1, this.p2)
             } else if (this.sett.extended) {
@@ -71,6 +74,7 @@ export default {
             }
 
             ctx.stroke()
+            ctx.setLineDash([])
             this.render_pins(ctx)
 
         },
@@ -93,7 +97,10 @@ export default {
         },
         color() {
             return this.sett.color || '#42b28a'
-        }
+        },
+      dash() {
+        return this.sett.dash || false
+      },
     },
     data() {
         return {}
