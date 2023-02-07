@@ -41,7 +41,7 @@
     "trading-systems"
   ],
   "homepage": "https://github.com/C451/trading-vue-js#readme",
-  "repository": "github:C451/trading-vue-js",
+  "repository": "github:oneart/trading-vue-js-tmm",
   "devDependencies": {
     "@ava/babel": "^1.0.1",
     "@babel/core": "^7.13.10",
