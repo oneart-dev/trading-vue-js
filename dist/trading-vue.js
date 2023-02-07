@@ -1,5 +1,5 @@
 /*!
- * TradingVue.JS - v1.0.2 - Mon Jul 05 2021
+ * TradingVue.JS - v1.1.0 - Tue Feb 07 2023
  *     https://github.com/tvjsx/trading-vue-js
  *     Copyright (c) 2019 C451 Code's All Right;
  *     Licensed under the MIT license
@@ -12628,7 +12628,8 @@ var DCCore = /*#__PURE__*/function (_DCEvents) {
       var _range_changed = _asyncToGenerator( /*#__PURE__*/regenerator_default().mark(function _callee(range, tf, check) {
         var _this2 = this;
 
-        var first, prom;
+        var first, last, prom, _prom;
+
         return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -12646,22 +12647,23 @@ var DCCore = /*#__PURE__*/function (_DCEvents) {
 
               case 3:
                 if (this.loading) {
-                  _context.next = 19;
+                  _context.next = 34;
                   break;
                 }
 
                 first = this.data.chart.data[0][0];
+                last = this.data.chart.data[this.data.chart.data.length - 1][0];
 
                 if (!(range[0] < first)) {
-                  _context.next = 19;
+                  _context.next = 20;
                   break;
                 }
 
                 this.loading = true;
-                _context.next = 9;
+                _context.next = 10;
                 return utils.pause(250);
 
-              case 9:
+              case 10:
                 // Load bigger chunks
                 range = range.slice(); // copy
 
@@ -12673,23 +12675,58 @@ var DCCore = /*#__PURE__*/function (_DCEvents) {
                 });
 
                 if (!(prom && prom.then)) {
-                  _context.next = 19;
+                  _context.next = 20;
                   break;
                 }
 
                 _context.t0 = this;
-                _context.next = 17;
+                _context.next = 18;
                 return prom;
 
-              case 17:
+              case 18:
                 _context.t1 = _context.sent;
 
                 _context.t0.chunk_loaded.call(_context.t0, _context.t1);
 
-              case 19:
+              case 20:
+                if (!(range[1] > last)) {
+                  _context.next = 34;
+                  break;
+                }
+
+                this.loading = true;
+                _context.next = 24;
+                return utils.pause(250);
+
+              case 24:
+                // Load bigger chunks
+                range = range.slice(); // copy
+
+                range[0] = Math.floor(last);
+                range[1] = Math.floor(range[1]);
+                _prom = this.loader(range, tf, function (d) {
+                  // Callback way
+                  _this2.chunk_loaded(d);
+                });
+
+                if (!(_prom && _prom.then)) {
+                  _context.next = 34;
+                  break;
+                }
+
+                _context.t2 = this;
+                _context.next = 32;
+                return _prom;
+
+              case 32:
+                _context.t3 = _context.sent;
+
+                _context.t2.chunk_loaded.call(_context.t2, _context.t3);
+
+              case 34:
                 if (!check) this.last_chunk = [range, tf];
 
-              case 20:
+              case 35:
               case "end":
                 return _context.stop();
             }
