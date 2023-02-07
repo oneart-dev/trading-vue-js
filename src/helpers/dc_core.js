@@ -74,12 +74,29 @@ export default class DCCore extends DCEvents {
         if (!this.loader) return
         if (!this.loading) {
             let first = this.data.chart.data[0][0]
+            let last = this.data.chart.data[this.data.chart.data.length-1][0]
             if (range[0] < first) {
                 this.loading = true
                 await Utils.pause(250) // Load bigger chunks
                 range = range.slice()  // copy
                 range[0] = Math.floor(range[0])
                 range[1] = Math.floor(first)
+                let prom = this.loader(range, tf, d => {
+                    // Callback way
+                    this.chunk_loaded(d)
+                })
+                if (prom && prom.then) {
+                    // Promise way
+                    this.chunk_loaded(await prom)
+                }
+            }
+
+            if (range[1] > last) {
+                this.loading = true
+                await Utils.pause(250) // Load bigger chunks
+                range = range.slice()  // copy
+                range[0] = Math.floor(last)
+                range[1] = Math.floor(range[1])
                 let prom = this.loader(range, tf, d => {
                     // Callback way
                     this.chunk_loaded(d)
